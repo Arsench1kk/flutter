@@ -1,6 +1,3 @@
-// The assignment requires printing all query results to the terminal.
-// ignore_for_file: avoid_print
-
 import 'catalogue.dart';
 import 'data.dart';
 import 'models.dart';

@@ -54,7 +54,6 @@ class Library {
       return 0;
     }
 
-    // fold is used because the collection may be empty; reduce would fail.
     final totalPages = books.fold(
       0,
           (total, book) => total + book.pages,
