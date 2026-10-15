@@ -1,17 +1,9 @@
-# week2
+# Flutter Practices
 
-A new Flutter project.
+Each numbered folder is a separate course project. Open the folder containing that practice's `pubspec.yaml` in IntelliJ IDEA, then run its `lib/main.dart`.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [`practice02/`](practice02/) — Dart collections, models, catalogue and shelf states.
+- [`practice03/`](practice03/) — profile screen and reusable widgets.
+- [`practice04/`](practice04/) — interactive widgets and state.
+- [`practice05/`](practice05/) — responsive, scrollable contacts layout.
+- [`practice06/`](practice06/) — student list, detail, editing and navigation.
