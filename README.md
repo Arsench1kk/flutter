@@ -11,3 +11,4 @@ When the repository root is open in IntelliJ IDEA, select the matching shared ru
 - [`practice06/`](practice06/) — student list, detail, editing and navigation.
 - [`practice07/`](practice07/) — validated sign-up form, keyboard focus, selection inputs and adaptive summary.
 - [`practice08/`](practice08/) — Dart collections, reactive reading list, navigation results and validated add-book form.
+- [`lab01/`](lab01/) — Campus Events app with models, adaptive event browser, registration, form validation, navigation and themes.
