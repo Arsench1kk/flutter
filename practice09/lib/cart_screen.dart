@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'models/book.dart';
+import 'models/cart.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key, required this.items, required this.onRemove});
-
-  final List<Book> items;
-  final void Function(Book) onRemove;
+  const CartScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final total = items.fold(0, (sum, book) => sum + book.price);
-    return Scaffold(
-      appBar: AppBar(title: const Text('Your cart')),
-      body: Column(
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Your cart')),
+    body: Consumer<Cart>(
+      builder: (context, cart, _) => Column(
         children: [
           Expanded(
-            child: items.isEmpty
+            child: cart.items.isEmpty
                 ? const Center(child: Text('Your cart is empty'))
                 : ListView(
                     children: [
-                      for (final book in items)
+                      for (final book in cart.items)
                         ListTile(
                           title: Text(book.title),
                           subtitle: Text('${book.price} ₸'),
                           trailing: IconButton(
                             tooltip: 'Remove ${book.title}',
-                            onPressed: () => onRemove(book),
+                            onPressed: () => cart.remove(book),
                             icon: const Icon(Icons.close),
                           ),
                         ),
@@ -40,7 +37,7 @@ class CartScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'Total: $total ₸',
+                  'Total: ${cart.total} ₸',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
@@ -48,6 +45,6 @@ class CartScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
 }
