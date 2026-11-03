@@ -2,7 +2,7 @@
 
 Each numbered folder is a separate course project. Open the folder containing that practice's `pubspec.yaml` in IntelliJ IDEA, then run its `lib/main.dart`.
 
-When the repository root is open in IntelliJ IDEA, select the matching shared run configuration (`Practice 02` through `Practice 08`) in the toolbar.
+When the repository root is open in IntelliJ IDEA, select the matching shared run configuration (`Practice 02` through `Practice 09`) in the toolbar.
 
 - [`practice02/`](practice02/) — Dart collections, models, catalogue and shelf states.
 - [`practice03/`](practice03/) — profile screen and reusable widgets.
@@ -11,4 +11,5 @@ When the repository root is open in IntelliJ IDEA, select the matching shared ru
 - [`practice06/`](practice06/) — student list, detail, editing and navigation.
 - [`practice07/`](practice07/) — validated sign-up form, keyboard focus, selection inputs and adaptive summary.
 - [`practice08/`](practice08/) — Dart collections, reactive reading list, navigation results and validated add-book form.
+- [`practice09/`](practice09/) — lifted cart state, ChangeNotifier, Provider subscriptions, selective rebuilds and widget-side effects.
 - [`lab01/`](lab01/) — Campus Events app with models, adaptive event browser, registration, form validation, navigation and themes.

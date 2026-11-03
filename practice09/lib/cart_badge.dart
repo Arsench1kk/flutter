@@ -8,12 +8,13 @@ class CartBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = context.watch<Cart>();
+    debugPrint('badge build');
+    final count = context.select<Cart, int>((cart) => cart.count);
     return IconButton(
-      tooltip: '${cart.total} ₸ in cart',
+      tooltip: '$count books in cart',
       onPressed: () => Navigator.of(context).pushNamed('/cart'),
       icon: Badge(
-        label: Text('${cart.count} · ${cart.total} ₸'),
+        label: Text('$count'),
         child: const Icon(Icons.shopping_cart_outlined),
       ),
     );

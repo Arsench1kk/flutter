@@ -20,7 +20,13 @@ class BookRow extends StatelessWidget {
       trailing: isAdded
           ? const Text('Added')
           : OutlinedButton(
-              onPressed: () => context.read<Cart>().add(book),
+              onPressed: () {
+                final added = context.read<Cart>().add(book);
+                if (added) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Added')));
+                }
+              },
               child: const Text('Add'),
             ),
     );
