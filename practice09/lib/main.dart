@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'book.dart';
+import 'models/book.dart';
+import 'models/cart.dart';
 import 'books_screen.dart';
 import 'cart_screen.dart';
 
-void main() => runApp(const Shell());
+void main() {
+  final cart = Cart();
+  cart.add(books[0]);
+  cart.add(books[1]);
+  cart.add(books[0]);
+  cart.remove(books[0]);
+  debugPrint('${cart.count} items, ${cart.total} ₸');
+  runApp(const Shell());
+}
 
 class Shell extends StatefulWidget {
   const Shell({super.key});

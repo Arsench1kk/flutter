@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'book.dart';
+import 'models/book.dart';
 import 'cart_badge.dart';
 
 class BooksScreen extends StatelessWidget {
