@@ -2,7 +2,7 @@
 
 ## Level 1 — event loop and fake API
 
-`fetchStudents()` prints `A`, then suspends at its two-second `Future.delayed`. The caller prints `C` without waiting. Flutter can draw the first frame while the future is pending. When the delay completes, the continuation prints `B` and the loaded student count (`6`). The expected visible order is therefore:
+Before running, I predicted this order. `main()` prints `A`, schedules `B`, starts `fetchStudents()` and prints `C` without waiting. Flutter draws its first frame while the futures are pending. After about two seconds the delayed callbacks complete:
 
 ```text
 A
@@ -12,13 +12,38 @@ B
 6 students
 ```
 
-Every third API request throws `NoConnectionException` after the delay. In the deliberate unhandled-error experiment, that appears as an unhandled `NoConnectionException`; the app screens in this solution catch it and render a retry state. Replacing the asynchronous delay with blocking `sleep` blocks the Dart isolate: the first frame and pending continuations cannot run until `sleep` returns. Restore the delay after the experiment.
+I ran the event-order experiment in Flutter. The actual console order was:
+
+```text
+A
+C
+fetchStudents #1
+first frame
+B
+6 students
+```
+
+The API's request log appears between `C` and the first frame because the fake request starts immediately and prints before its first `await`. The timers do not block `main()` or the frame; their continuations run later through the event loop.
+
+Every third API request throws `NoConnectionException` after the delay. The deliberate three-request experiment is expected to print:
+
+```text
+Unhandled Exception: Instance of 'NoConnectionException'
+```
+
+The app screens catch that exception and render a retry state. Replacing the asynchronous delay with blocking `sleep` blocks the Dart isolate: the first frame and pending continuations cannot run until `sleep` returns. Restore the delay after the experiment.
 
 ## Level 2 — explicit loading states
 
 `StudentsScreen` holds nullable student data and error state. `_load()` clears the old state, awaits the API, then calls `setState` only while `mounted`. `initState()` starts the initial load without awaiting it. The third request demonstrates the error view; Retry starts another request. The group icon toggles the fake API's empty response. Four small stateless widgets in `lib/widgets/` render loading, error, empty, and data states. Missing GPA is displayed as an em dash.
 
-If a state update is attempted after its screen is disposed, Flutter reports a line beginning `setState() called after dispose()`. The `mounted` checks after asynchronous gaps prevent that lifecycle error.
+If the two `mounted` guards are removed and Back is pressed during loading, Flutter reports a line of this form:
+
+```text
+setState() called after dispose(): _StudentsScreenState#…
+```
+
+The state identity suffix varies per run. The stable error prefix is `setState() called after dispose()`. The guards after asynchronous gaps prevent this lifecycle error.
 
 ## Level 3 — `FutureBuilder`
 
@@ -32,6 +57,8 @@ If a state update is attempted after its screen is disposed, Flutter reports a l
 - **listen + cancel** stores a `StreamSubscription`, updates the displayed count in `onData`, and cancels the subscription in `dispose()` (and when switching modes).
 
 Leaving the countdown screen mid-run disposes its listener. For the manual version, cancellation stops further `onData` output; for the `StreamBuilder` version, Flutter manages the subscription lifetime.
+
+At 7, leaving the manual version with `cancel()` enabled should leave the console ending at `tick 7`; there should be no later ticks. With `_sub.cancel()` deliberately removed, the disposed state should report `setState() called after dispose()` and the generator should continue with `tick 6`, `tick 5`, down to `tick 0`. Leaving the StreamBuilder version at 7 should stop its stream without an explicit cancellation call in our code; StreamBuilder cancels its own subscription.
 
 ## Level 5 — awaiting a save
 
