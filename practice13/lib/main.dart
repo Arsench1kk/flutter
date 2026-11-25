@@ -12,7 +12,7 @@ import 'features/auth/auth_model.dart';
 import 'features/auth/login_screen.dart';
 import 'features/profile/avatar_store.dart';
 import 'features/settings/settings_model.dart';
-import 'user_repository.dart';
+import 'features/users/user_repository.dart';
 import 'users_model.dart';
 import 'users_screen.dart';
 
