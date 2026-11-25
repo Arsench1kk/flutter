@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'secure_store.dart';
+import 'core/storage/secure_store.dart';
 
 class AuthModel extends ChangeNotifier {
   AuthModel(this._store, {required String? token}) : _signedIn = token != null;

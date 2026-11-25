@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'secure_store.dart';
+import 'core/storage/secure_store.dart';
 import 'user.dart';
 
 class UserDetailScreen extends StatelessWidget {
