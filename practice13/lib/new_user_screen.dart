@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/api/api_exception.dart';
-import 'user.dart';
+import 'features/users/user.dart';
 import 'users_model.dart';
 
 class NewUserScreen extends StatefulWidget {

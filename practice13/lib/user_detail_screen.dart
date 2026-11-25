@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'core/storage/secure_store.dart';
-import 'user.dart';
+import 'features/users/user.dart';
 
 class UserDetailScreen extends StatelessWidget {
   const UserDetailScreen({super.key, required this.user});

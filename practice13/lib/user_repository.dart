@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'core/api/api_client.dart';
 import 'core/api/api_exception.dart';
 import 'core/storage/secure_store.dart';
-import 'user.dart';
+import 'features/users/user.dart';
 import 'users_cache.dart';
 
 typedef UsersResult = ({List<User> items, bool fromCache});

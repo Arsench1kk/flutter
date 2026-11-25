@@ -5,7 +5,7 @@ import 'core/api/api_exception.dart';
 import 'features/settings/settings_model.dart';
 import 'features/settings/settings_screen.dart';
 import 'new_user_screen.dart';
-import 'user.dart';
+import 'features/users/user.dart';
 import 'user_detail_screen.dart';
 import 'users_model.dart';
 
