@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/storage/secure_store.dart';
 import 'features/auth/auth_model.dart';
 import 'features/auth/login_screen.dart';
-import 'avatar_store.dart';
+import 'features/profile/avatar_store.dart';
 import 'features/settings/settings_model.dart';
 import 'user_repository.dart';
 import 'users_model.dart';
