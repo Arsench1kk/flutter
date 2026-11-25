@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../auth/auth_model.dart';
-import '../../profile_screen.dart';
+import '../profile/profile_screen.dart';
 import '../../users_model.dart';
 import 'settings_model.dart';
 

@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
-import 'features/profile/avatar_store.dart';
+import 'avatar_store.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
