@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:where_things_go/features/users/geo.dart';
 import 'package:where_things_go/features/users/user.dart';
 
 import '../../fixtures/user_json.dart';
@@ -22,5 +23,13 @@ void main() {
       ) as Map<String, dynamic>;
       expect(() => User.fromJson(json), throwsA(isA<TypeError>()));
     });
+  });
+
+  test('Geo.fromJson throws TypeError for a numeric latitude', () {
+    final json =
+        jsonDecode(userWithNumericLatitudeJson) as Map<String, dynamic>;
+    final address = json['address'] as Map<String, dynamic>;
+    final geo = address['geo'] as Map<String, dynamic>;
+    expect(() => Geo.fromJson(geo), throwsA(isA<TypeError>()));
   });
 }

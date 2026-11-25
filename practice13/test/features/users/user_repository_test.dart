@@ -68,6 +68,23 @@ void main() {
     });
   });
 
+  test('getAll reports a numeric latitude as a bad response', () async {
+    final repo = repository(
+      (request) async => http.Response('[$userWithNumericLatitudeJson]', 200),
+    );
+
+    await expectLater(
+      repo.getAll(),
+      throwsA(
+        isA<BadResponseException>().having(
+          (error) => error.detail,
+          'detail',
+          'users: lat is not a String',
+        ),
+      ),
+    );
+  });
+
   test(
     'getAll falls back to its last successful response when offline',
     () async {
