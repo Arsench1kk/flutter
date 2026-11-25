@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/storage/secure_store.dart';
-import 'auth_model.dart';
+import 'features/auth/auth_model.dart';
 import 'login_screen.dart';
 import 'avatar_store.dart';
 import 'settings_model.dart';
