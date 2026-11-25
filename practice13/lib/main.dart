@@ -14,7 +14,7 @@ import 'features/profile/avatar_store.dart';
 import 'features/settings/settings_model.dart';
 import 'features/users/user_repository.dart';
 import 'features/users/users_model.dart';
-import 'users_screen.dart';
+import 'features/users/users_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
