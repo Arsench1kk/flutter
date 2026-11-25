@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/api/api_exception.dart';
-import 'settings_model.dart';
+import 'features/settings/settings_model.dart';
 import 'settings_screen.dart';
 import 'new_user_screen.dart';
 import 'user.dart';

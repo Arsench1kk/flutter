@@ -11,7 +11,7 @@ import 'core/storage/secure_store.dart';
 import 'features/auth/auth_model.dart';
 import 'features/auth/login_screen.dart';
 import 'avatar_store.dart';
-import 'settings_model.dart';
+import 'features/settings/settings_model.dart';
 import 'user_repository.dart';
 import 'users_model.dart';
 import 'users_screen.dart';

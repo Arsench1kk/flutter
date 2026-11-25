@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'features/auth/auth_model.dart';
 import 'profile_screen.dart';
 import 'users_model.dart';
-import 'settings_model.dart';
+import 'features/settings/settings_model.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
