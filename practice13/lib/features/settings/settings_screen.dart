@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../auth/auth_model.dart';
 import '../profile/profile_screen.dart';
 import '../users/users_model.dart';
+import '../users/widgets/city_filter_field.dart';
 import 'settings_model.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -59,20 +60,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             value: settings.dark,
             onChanged: (value) => _saveSetting(settings.setDark(value)),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-            child: DropdownButtonFormField<String>(
-              initialValue: currentCity ?? '',
-              isExpanded: true,
-              decoration: const InputDecoration(labelText: 'City filter'),
-              items: [
-                const DropdownMenuItem(value: '', child: Text('All cities')),
-                for (final city in cities)
-                  DropdownMenuItem(value: city, child: Text(city)),
-              ],
-              onChanged: (value) =>
-                  _saveSetting(settings.setCity(value == '' ? null : value)),
-            ),
+          CityFilterField(
+            cities: cities,
+            selectedCity: currentCity,
+            onChanged: (value) => _saveSetting(settings.setCity(value)),
           ),
           ListTile(
             leading: const Icon(Icons.account_circle_outlined),

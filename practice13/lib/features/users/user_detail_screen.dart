@@ -2,24 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/storage/secure_store.dart';
 import 'user.dart';
+import 'widgets/user_contact_fields.dart';
+import 'widgets/user_detail_field.dart';
 
 class UserDetailScreen extends StatelessWidget {
   const UserDetailScreen({super.key, required this.user});
 
   final User user;
-
-  Future<void> _openLink(BuildContext context, Uri uri) async {
-    try {
-      if (await launchUrl(uri)) return;
-    } on PlatformException {
-      // Some platform launchers throw when no handler is available.
-    }
-    if (context.mounted) _showMessage(context, 'No app can open this');
-  }
 
   Future<void> _copyToken(BuildContext context) async {
     try {
@@ -43,46 +35,17 @@ class UserDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final address = user.address;
     final company = user.company;
-    final email = user.email.trim();
-    final phone = user.phoneDigits;
-    final website = user.website?.trim() ?? '';
-    final domain = website.replaceFirst(
-      RegExp(r'^https?://', caseSensitive: false),
-      '',
-    );
-    final websiteUri = Uri.tryParse('https://$domain');
-
     return Scaffold(
       appBar: AppBar(title: const Text('User details')),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
-          _field('Name', user.name),
-          _field('ID', '${user.id}'),
-          _field('Username', user.username),
-          _field(
-            'Email',
-            user.email,
-            onTap: email.isEmpty
-                ? null
-                : () => _openLink(context, Uri(scheme: 'mailto', path: email)),
-          ),
-          _field(
-            'Phone',
-            user.phone,
-            onTap: phone.isEmpty
-                ? null
-                : () => _openLink(context, Uri(scheme: 'tel', path: phone)),
-          ),
-          _field(
-            'Website',
-            website,
-            onTap: websiteUri == null || websiteUri.host.isEmpty
-                ? null
-                : () => _openLink(context, websiteUri),
-          ),
+          UserDetailField('Name', user.name),
+          UserDetailField('ID', '${user.id}'),
+          UserDetailField('Username', user.username),
+          UserContactFields(user: user),
           const Divider(),
-          _field(
+          UserDetailField(
             'Address',
             [
               address.street,
@@ -91,16 +54,16 @@ class UserDetailScreen extends StatelessWidget {
               address.zipcode,
             ].where((value) => value.isNotEmpty).join(', '),
           ),
-          _field(
+          UserDetailField(
             'Coordinates',
             address.city.isEmpty
                 ? ''
                 : '${address.geo.lat}, ${address.geo.lng}',
           ),
           const Divider(),
-          _field('Company', company.name),
-          _field('Catchphrase', company.catchPhrase),
-          _field('Business', user.companyBusiness),
+          UserDetailField('Company', company.name),
+          UserDetailField('Catchphrase', company.catchPhrase),
+          UserDetailField('Business', user.companyBusiness),
           if (kDebugMode)
             Center(
               child: OutlinedButton.icon(
@@ -113,11 +76,4 @@ class UserDetailScreen extends StatelessWidget {
       ),
     );
   }
-
-  Widget _field(String label, String value, {VoidCallback? onTap}) => ListTile(
-    title: Text(label),
-    subtitle: Text(value.isEmpty ? '—' : value),
-    onTap: onTap,
-    trailing: onTap == null ? null : const Icon(Icons.open_in_new),
-  );
 }
