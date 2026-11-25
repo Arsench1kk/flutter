@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'core/api/api_exception.dart';
 import 'features/users/user.dart';
-import 'users_model.dart';
+import 'features/users/users_model.dart';
 
 class NewUserScreen extends StatefulWidget {
   const NewUserScreen({super.key});

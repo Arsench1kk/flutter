@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-import 'core/api/api_exception.dart';
-import 'features/users/user.dart';
-import 'features/users/user_repository.dart';
+import '../../core/api/api_exception.dart';
+import 'user.dart';
+import 'user_repository.dart';
 
 class UsersModel extends ChangeNotifier {
   UsersModel(this._repo);
