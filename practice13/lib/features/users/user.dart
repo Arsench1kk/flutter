@@ -1,57 +1,5 @@
-class Geo {
-  const Geo({required this.lat, required this.lng});
-
-  final double lat;
-  final double lng;
-
-  factory Geo.fromJson(Map<String, dynamic> json) => Geo(
-    lat: _parseCoordinate(json, 'lat'),
-    lng: _parseCoordinate(json, 'lng'),
-  );
-
-  static double _parseCoordinate(Map<String, dynamic> json, String key) {
-    final value = double.parse(json[key] as String);
-    if (!value.isFinite) throw FormatException('geo.$key must be finite');
-    return value;
-  }
-
-  Map<String, Object?> toJson() => {
-    'lat': lat.toString(),
-    'lng': lng.toString(),
-  };
-}
-
-class Address {
-  const Address({
-    required this.street,
-    required this.suite,
-    required this.city,
-    required this.zipcode,
-    required this.geo,
-  });
-
-  final String street;
-  final String suite;
-  final String city;
-  final String zipcode;
-  final Geo geo;
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-    street: json['street'] as String,
-    suite: json['suite'] as String,
-    city: json['city'] as String,
-    zipcode: json['zipcode'] as String,
-    geo: Geo.fromJson(json['geo'] as Map<String, dynamic>),
-  );
-
-  Map<String, Object?> toJson() => {
-    'street': street,
-    'suite': suite,
-    'city': city,
-    'zipcode': zipcode,
-    'geo': geo.toJson(),
-  };
-}
+import 'address.dart';
+import 'geo.dart';
 
 class User {
   const User({

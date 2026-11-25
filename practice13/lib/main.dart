@@ -7,14 +7,17 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app.dart';
+import 'core/api/api_client.dart';
 import 'core/storage/secure_store.dart';
 import 'features/auth/auth_model.dart';
-import 'features/auth/login_screen.dart';
 import 'features/profile/avatar_store.dart';
 import 'features/settings/settings_model.dart';
+// import 'features/users/fake_user_repository.dart';
+import 'features/users/http_user_repository.dart';
 import 'features/users/user_repository.dart';
+import 'features/users/users_cache.dart';
 import 'features/users/users_model.dart';
-import 'features/users/users_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,46 +61,19 @@ Future<void> main() async {
           create: (_) => AuthModel(secureStore, token: token),
         ),
       ],
-      child: App(storageUnavailable: storageUnavailable),
+      child: App(
+        storageUnavailable: storageUnavailable,
+        createUsers: () {
+          // final UserRepository repo = FakeUserRepository();
+          final UserRepository repo = HttpUserRepository(
+            ApiClient.connect(secureStore),
+            const UsersCache(),
+          );
+          final model = UsersModel(repo);
+          unawaited(model.load());
+          return model;
+        },
+      ),
     ),
   );
-}
-
-class App extends StatelessWidget {
-  const App({super.key, this.storageUnavailable = false});
-
-  final bool storageUnavailable;
-
-  @override
-  Widget build(BuildContext context) {
-    final dark = context.select((SettingsModel settings) => settings.dark);
-    final signedIn = context.select((AuthModel auth) => auth.signedIn);
-    const seedColor = Colors.deepPurple;
-    return MaterialApp(
-      key: ValueKey(signedIn),
-      title: 'Survive a Restart',
-      debugShowCheckedModeBanner: false,
-      themeMode: dark ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: seedColor)),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: seedColor,
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: signedIn
-          ? ChangeNotifierProvider(
-              create: (context) {
-                final repository = UserRepository.connect(
-                  context.read<SecureStore>(),
-                );
-                final model = UsersModel(repository);
-                unawaited(model.load());
-                return model;
-              },
-              child: const UsersScreen(),
-            )
-          : LoginScreen(storageUnavailable: storageUnavailable),
-    );
-  }
 }

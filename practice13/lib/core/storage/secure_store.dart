@@ -10,7 +10,7 @@ class SecureStore {
             )
           : const FlutterSecureStorage();
 
-  static const _tokenKey = 'practice12.auth_token';
+  static const _tokenKey = 'practice13.auth_token';
 
   final FlutterSecureStorage _storage;
 
